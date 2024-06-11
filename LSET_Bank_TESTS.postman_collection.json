@@ -1,0 +1,142 @@
+{
+	"info": {
+		"_postman_id": "b43fd706-5be4-4450-bf7e-2020aeaae9d1",
+		"name": "LSET_Bank_TESTS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "26458154"
+	},
+	"item": [
+		{
+			"name": "TC001_Add_New_Student",
+			"item": [
+				{
+					"name": "Add_New_Student",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request, Validate status code from list\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201, 202]);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time should be less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"cognitoid\": \"9aa0ec90-1ac7-cac6-974a-3df85ceaf117\",\r\n  \"name\": \"Mark\",\r\n  \"dateofbirth\": \"2024-06-06\",\r\n  \"nationalinsurancenumber\": \"NINO1234\",\r\n  \"address\": \"Mark Street\",\r\n  \"email\": \"{{EMAIL}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{LSET_LINK}}/user/add"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TC002_Fetch_New_Student_By_EMAIL",
+			"item": [
+				{
+					"name": "Fetch_New_Student",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validate GET Status Code\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time should be less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"var userID = jsonData.id;\r",
+									"pm.environment.set(\"ID\", userID);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{LSET_LINK}}/user/byemail/{{EMAIL}}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TC003_Fetch_New_Student_By_ID",
+			"item": [
+				{
+					"name": "Fetch_New_Student",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validate GET Status Code\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time should be less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{LSET_LINK}}/user/{{ID}}"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
