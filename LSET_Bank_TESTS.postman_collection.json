@@ -226,7 +226,7 @@
 											"pm.test(\"Body contains: ID, cognito ID, name, address, Nino, Email and DOB\", function () {\r",
 											"    pm.expect(pm.response.text()).to.include(\"id\", \"name\", \"address\", \"cognitoid\", \"nationalinsurancenumber\", \"email\", \"dateofbirth\");\r",
 											"});\r",
-											"pm.test(\"Body contains updates provided in the header\", function () {\r",
+											"pm.test(\"Name changed\", function () {\r",
 											"    pm.expect(pm.response.text()).to.include(\"Mark Markowitz\");\r",
 											"});"
 										],
@@ -293,7 +293,7 @@
 											"pm.test(\"Body contains: ID, cognito ID, name, address, Nino, Email and DOB\", function () {\r",
 											"    pm.expect(pm.response.text()).to.include(\"id\", \"name\", \"address\", \"cognitoid\", \"nationalinsurancenumber\", \"email\", \"dateofbirth\");\r",
 											"});\r",
-											"pm.test(\"Body contains updates provided in the header\", function () {\r",
+											"pm.test(\"DOB changed\", function () {\r",
 											"    pm.expect(pm.response.text()).to.include(\"1984-06-10\");\r",
 											"});"
 										],
@@ -360,7 +360,7 @@
 											"pm.test(\"Body contains: ID, cognito ID, name, address, Nino, Email and DOB\", function () {\r",
 											"    pm.expect(pm.response.text()).to.include(\"id\", \"name\", \"address\", \"cognitoid\", \"nationalinsurancenumber\", \"email\", \"dateofbirth\");\r",
 											"});\r",
-											"pm.test(\"Body contains updates provided in the header\", function () {\r",
+											"pm.test(\"Nino changed\", function () {\r",
 											"    pm.expect(pm.response.text()).to.include(\"12345678\");\r",
 											"});"
 										],
@@ -427,7 +427,7 @@
 											"pm.test(\"Body contains: ID, cognito ID, name, address, Nino, Email and DOB\", function () {",
 											"    pm.expect(pm.response.text()).to.include(\"id\", \"name\", \"address\", \"cognitoid\", \"nationalinsurancenumber\", \"email\", \"dateofbirth\");",
 											"});",
-											"pm.test(\"Body contains updates provided in the header\", function () {",
+											"pm.test(\"Address changed\", function () {",
 											"    pm.expect(pm.response.text()).to.include(\"281 London Street\");",
 											"});",
 											""
@@ -473,8 +473,77 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "TC009_Update_User_EMAIL",
+					"item": [
+						{
+							"name": "Update_New_User_EMAIL",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful POST request, Validate status code from list\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);",
+											"});",
+											"",
+											"pm.test(\"Response time should be less than 500ms\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);",
+											"});",
+											"",
+											"pm.test(\"Body contains: ID, cognito ID, name, address, Nino, Email and DOB\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"id\", \"name\", \"address\", \"cognitoid\", \"nationalinsurancenumber\", \"email\", \"dateofbirth\");",
+											"});",
+											"pm.test(\"Email Changed\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"superguy@gmail.com\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"strictSSL": false
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{TOKEN}}"
+									}
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"cognitoid\": \"{{CognitoID}}\",\r\n  \"name\": \"{{Name}}\",\r\n  \"dateofbirth\": \"{{DOB}}\",\r\n  \"nationalinsurancenumber\": \"{{NINO}}\",\r\n  \"address\": \"{{ADDRESS}}\",\r\n  \"email\": \"superguy@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{LSET_LINK}}/user/update"
+							},
+							"response": []
+						}
+					]
 				}
-			]
+			],
+			"description": "These are test cases just for user controller's tab on the Payload sheet"
 		}
 	]
 }
