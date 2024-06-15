@@ -220,13 +220,13 @@
 			"name": "TC005_Update_New_User_Name",
 			"item": [
 				{
-					"name": "Update_New_Student_Name",
+					"name": "Update_New_User_Name",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Successful POST request, Validate status code from list\", function () {\r",
+									"pm.test(\"Successful PUT request, Validate status code from list\", function () {\r",
 									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
 									"});\r",
 									"\r",
@@ -293,7 +293,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Successful POST request, Validate status code from list\", function () {\r",
+									"pm.test(\"Successful PUT request, Validate status code from list\", function () {\r",
 									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
 									"});\r",
 									"\r",
@@ -360,7 +360,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Successful POST request, Validate status code from list\", function () {\r",
+									"pm.test(\"Successful PUT request, Validate status code from list\", function () {\r",
 									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
 									"});\r",
 									"\r",
@@ -427,7 +427,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Successful POST request, Validate status code from list\", function () {",
+									"pm.test(\"Successful PUT request, Validate status code from list\", function () {",
 									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);",
 									"});",
 									"",
@@ -495,7 +495,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Successful POST request, Validate status code from list\", function () {",
+									"pm.test(\"Successful PUT request, Validate status code from list\", function () {",
 									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);",
 									"});",
 									"",
@@ -563,7 +563,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Successful POST request, Validate status code from list\", function () {\r",
+									"pm.test(\"Successful PUT request, Validate status code from list\", function () {\r",
 									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
 									"});\r",
 									"\r",
@@ -608,6 +608,210 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n  \"cognitoid\": \"12345678910\",\r\n  \"name\": \"{{Name}}\",\r\n  \"dateofbirth\": \"{{DOB}}\",\r\n  \"nationalinsurancenumber\": \"{{NINO}}\",\r\n  \"address\": \"{{ADDRESS}}\",\r\n  \"email\": \"{{EMAIL}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{LSET_LINK}}/user/update"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TC011_Update_New_User_Name-Numbers",
+			"item": [
+				{
+					"name": "Update_New_User_Name_Numbers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request, Validate status code from list\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400, 406, 403, 404]);",
+									"});",
+									"",
+									"pm.test(\"Response time should be less than 500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"",
+									"pm.test(\"Body contains: ID, cognito ID, name, address, Nino, Email and DOB\", function () {",
+									"    pm.expect(pm.response.text()).not.to.include(\"id\", \"name\", \"address\", \"cognitoid\", \"nationalinsurancenumber\", \"email\", \"dateofbirth\");",
+									"});",
+									"pm.test(\"Name field changed\", function () {",
+									"    pm.expect(pm.response.text()).not.to.include(\"12345678\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"cognitoid\": \"{{CognitoID}}\",\r\n  \"name\": \"12345678\",\r\n  \"dateofbirth\": \"{{DOB}}\",\r\n  \"nationalinsurancenumber\": \"{{NINO}}\",\r\n  \"address\": \"{{ADDRESS}}\",\r\n  \"email\": \"{{EMAIL}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{LSET_LINK}}/user/update"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TC012_Update_New_User_Name_SpecialCharacters",
+			"item": [
+				{
+					"name": "Update_New_User_Name_SpecialCharacters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request, Validate status code from list\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400, 406, 403, 404]);",
+									"});",
+									"",
+									"pm.test(\"Response time should be less than 500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"",
+									"pm.test(\"Body contains: ID, cognito ID, name, address, Nino, Email and DOB\", function () {",
+									"    pm.expect(pm.response.text()).not.to.include(\"id\", \"name\", \"address\", \"cognitoid\", \"nationalinsurancenumber\", \"email\", \"dateofbirth\");",
+									"});",
+									"pm.test(\"Name field changed\", function () {",
+									"    pm.expect(pm.response.text()).not.to.include(\"!@#$%^\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"cognitoid\": \"{{CognitoID}}\",\r\n  \"name\": \"!@#$%^\",\r\n  \"dateofbirth\": \"{{DOB}}\",\r\n  \"nationalinsurancenumber\": \"{{NINO}}\",\r\n  \"address\": \"{{ADDRESS}}\",\r\n  \"email\": \"{{EMAIL}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{LSET_LINK}}/user/update"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TC013_Update_New_User_Name-Numbers Copy",
+			"item": [
+				{
+					"name": "Update_New_User_Name_Numbers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request, Validate status code from list\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400, 406, 403, 404]);",
+									"});",
+									"",
+									"pm.test(\"Response time should be less than 500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"",
+									"pm.test(\"Body contains: ID, cognito ID, name, address, Nino, Email and DOB\", function () {",
+									"    pm.expect(pm.response.text()).not.to.include(\"id\", \"name\", \"address\", \"cognitoid\", \"nationalinsurancenumber\", \"email\", \"dateofbirth\");",
+									"});",
+									"pm.test(\"Name field changed\", function () {",
+									"    pm.expect(pm.response.text()).not.to.include(\"markmark\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"cognitoid\": \"{{CognitoID}}\",\r\n  \"name\": \"{{Name}}\",\r\n  \"dateofbirth\": \"markmark\",\r\n  \"nationalinsurancenumber\": \"{{NINO}}\",\r\n  \"address\": \"{{ADDRESS}}\",\r\n  \"email\": \"{{EMAIL}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
