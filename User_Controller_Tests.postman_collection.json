@@ -571,8 +571,8 @@
 									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Name changed\", function () {\r",
-									"    pm.expect(pm.response.text()).to.include(\"9aa0ec90-1ac7-cac6-974a-3df85ceaf117\");\r",
+									"pm.test(\"Cognito ID field didn't change\", function () {\r",
+									"    pm.expect(pm.response.text()).not.to.include(\"9aa0ec90-1ac7-cac6-974a-3df85ceaf117\");\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -618,10 +618,10 @@
 			]
 		},
 		{
-			"name": "TC011_Update_New_User_Name-Numbers",
+			"name": "TC011_Update_User_Name-Numbers",
 			"item": [
 				{
-					"name": "Update_New_User_Name_Numbers",
+					"name": "Update_User_Name_Numbers",
 					"event": [
 						{
 							"listen": "test",
@@ -635,7 +635,7 @@
 									"    pm.expect(pm.response.responseTime).to.be.below(500);",
 									"});",
 									"",
-									"pm.test(\"Name field changed\", function () {",
+									"pm.test(\"Name field didn't change\", function () {",
 									"    pm.expect(pm.response.text()).not.to.include(\"12345678\");",
 									"});",
 									""
@@ -683,10 +683,10 @@
 			]
 		},
 		{
-			"name": "TC012_Update_New_User_Name_SpecialCharacters",
+			"name": "TC012_Update_User_Name_SpecialCharacters",
 			"item": [
 				{
-					"name": "Update_New_User_Name_SpecialCharacters",
+					"name": "Update_User_Name_SpecialCharacters",
 					"event": [
 						{
 							"listen": "test",
@@ -700,7 +700,7 @@
 									"    pm.expect(pm.response.responseTime).to.be.below(500);",
 									"});",
 									"",
-									"pm.test(\"Name field changed\", function () {",
+									"pm.test(\"Name field didn't change\", function () {",
 									"    pm.expect(pm.response.text()).not.to.include(\"!@#$%^\");",
 									"});",
 									""
@@ -748,10 +748,10 @@
 			]
 		},
 		{
-			"name": "TC013_Update_New_User_DOB_Characters",
+			"name": "TC013_Update_User_DOB_Characters",
 			"item": [
 				{
-					"name": "Update_New_User_Name_Characters",
+					"name": "Update_User_DOB_Characters",
 					"event": [
 						{
 							"listen": "test",
@@ -765,7 +765,7 @@
 									"    pm.expect(pm.response.responseTime).to.be.below(500);",
 									"});",
 									"",
-									"pm.test(\"Name field changed\", function () {",
+									"pm.test(\"DOB field didn't change\", function () {",
 									"    pm.expect(pm.response.text()).not.to.include(\"markmark\");",
 									"});",
 									""
@@ -813,10 +813,10 @@
 			]
 		},
 		{
-			"name": "TC014_Update_New_User_DOB_SpecialCharacters",
+			"name": "TC014_Update_User_DOB_SpecialCharacters",
 			"item": [
 				{
-					"name": "Update_New_User_Name_SpecialCharacters",
+					"name": "Update_User_DOB_SpecialCharacters",
 					"event": [
 						{
 							"listen": "test",
@@ -830,7 +830,7 @@
 									"    pm.expect(pm.response.responseTime).to.be.below(500);",
 									"});",
 									"",
-									"pm.test(\"Name field changed\", function () {",
+									"pm.test(\"DOB field didn't change\", function () {",
 									"    pm.expect(pm.response.text()).not.to.include(\"!@##$%^\");",
 									"});",
 									""
@@ -865,6 +865,201 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n  \"cognitoid\": \"{{CognitoID}}\",\r\n  \"name\": \"{{Name}}\",\r\n  \"dateofbirth\": \"!@##$%^\",\r\n  \"nationalinsurancenumber\": \"{{NINO}}\",\r\n  \"address\": \"{{ADDRESS}}\",\r\n  \"email\": \"{{EMAIL}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{LSET_LINK}}/user/update"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TC015_Update_User_NINO_SpecialCharacters",
+			"item": [
+				{
+					"name": "Update_User_NINO_SpecialCharacters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request, Validate status code from list\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400, 406, 403, 404]);",
+									"});",
+									"",
+									"pm.test(\"Response time should be less than 500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"",
+									"pm.test(\"Nino field didn't change\", function () {",
+									"    pm.expect(pm.response.text()).not.to.include(\"!£$%^^&*\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"cognitoid\": \"{{CognitoID}}\",\r\n  \"name\": \"{{Name}}\",\r\n  \"dateofbirth\": \"{{DOB}}\",\r\n  \"nationalinsurancenumber\": \"!£$%^^&*\",\r\n  \"address\": \"{{ADDRESS}}\",\r\n  \"email\": \"{{EMAIL}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{LSET_LINK}}/user/update"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TC016_Update_User_ADDRESS_SpecialCharacters",
+			"item": [
+				{
+					"name": "Update_User_ADDRESS_SpecialCharacters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request, Validate status code from list\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400, 406, 403, 404]);",
+									"});",
+									"",
+									"pm.test(\"Response time should be less than 500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"",
+									"pm.test(\"Address field didn't change\", function () {",
+									"    pm.expect(pm.response.text()).not.to.include(\"!£$%^&**(\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"cognitoid\": \"{{CognitoID}}\",\r\n  \"name\": \"{{Name}}\",\r\n  \"dateofbirth\": \"{{DOB}}\",\r\n  \"nationalinsurancenumber\": \"{{NINO}}\",\r\n  \"address\": \"!£$%^&**(\",\r\n  \"email\": \"{{EMAIL}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{LSET_LINK}}/user/update"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TC017_Update_User_EMAIL_WrongFormat",
+			"item": [
+				{
+					"name": "Update_User_EMAIL_WrongFormat",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request, Validate status code from list\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400, 406, 403, 404]);",
+									"});",
+									"",
+									"pm.test(\"Response time should be less than 500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"",
+									"pm.test(\"Email field didn't change\", function () {",
+									"    pm.expect(pm.response.text()).not.to.include(\"mark123\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"cognitoid\": \"{{CognitoID}}\",\r\n  \"name\": \"{{Name}}\",\r\n  \"dateofbirth\": \"{{DOB}}\",\r\n  \"nationalinsurancenumber\": \"{{NINO}}\",\r\n  \"address\": \"{{ADDRESS}}\",\r\n  \"email\": \"mark123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
