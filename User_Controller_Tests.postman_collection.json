@@ -1071,6 +1071,489 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "TC018_Add_User_Name-Numbers",
+			"item": [
+				{
+					"name": "Add_User_Name_Numbers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request, Validate status code from list\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400, 406, 403, 404]);",
+									"});",
+									"",
+									"pm.test(\"Response time should be less than 500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"",
+									"pm.test(\"Name field didn't change\", function () {",
+									"    pm.expect(pm.response.text()).not.to.include(\"12345678\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Generate a random email\r",
+									"var randomEmail = 'user_' + Math.random().toString(36).substring(2, 12) + '@gmail.com';\r",
+									"\r",
+									"// Set the random email in the environment variable\r",
+									"pm.environment.set(\"EMAIL\", randomEmail);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"cognitoid\": \"{{CognitoID}}\",\r\n  \"name\": \"12345678\",\r\n  \"dateofbirth\": \"{{DOB}}\",\r\n  \"nationalinsurancenumber\": \"{{NINO}}\",\r\n  \"address\": \"{{ADDRESS}}\",\r\n  \"email\": \"{{EMAIL}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{LSET_LINK}}/user/add"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TC019_Add_User_Name_SpecialCharacters",
+			"item": [
+				{
+					"name": "Add_User_Name_SpecialCharacters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request, Validate status code from list\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400, 406, 403, 404]);",
+									"});",
+									"",
+									"pm.test(\"Response time should be less than 500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"",
+									"pm.test(\"Name field didn't change\", function () {",
+									"    pm.expect(pm.response.text()).not.to.include(\"!@#$%^\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Generate a random email\r",
+									"var randomEmail = 'user_' + Math.random().toString(36).substring(2, 12) + '@gmail.com';\r",
+									"\r",
+									"// Set the random email in the environment variable\r",
+									"pm.environment.set(\"EMAIL\", randomEmail);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"cognitoid\": \"{{CognitoID}}\",\r\n  \"name\": \"!@#$%^\",\r\n  \"dateofbirth\": \"{{DOB}}\",\r\n  \"nationalinsurancenumber\": \"{{NINO}}\",\r\n  \"address\": \"{{ADDRESS}}\",\r\n  \"email\": \"{{EMAIL}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{LSET_LINK}}/user/add"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TC020_Add_User_DOB_Characters",
+			"item": [
+				{
+					"name": "Add_User_DOB_Characters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request, Validate status code from list\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400, 406, 403, 404]);",
+									"});",
+									"",
+									"pm.test(\"Response time should be less than 500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"",
+									"pm.test(\"DOB field didn't change\", function () {",
+									"    pm.expect(pm.response.text()).not.to.include(\"markmark\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Generate a random email\r",
+									"var randomEmail = 'user_' + Math.random().toString(36).substring(2, 12) + '@gmail.com';\r",
+									"\r",
+									"// Set the random email in the environment variable\r",
+									"pm.environment.set(\"EMAIL\", randomEmail);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"cognitoid\": \"{{CognitoID}}\",\r\n  \"name\": \"{{Name}}\",\r\n  \"dateofbirth\": \"markmark\",\r\n  \"nationalinsurancenumber\": \"{{NINO}}\",\r\n  \"address\": \"{{ADDRESS}}\",\r\n  \"email\": \"{{EMAIL}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{LSET_LINK}}/user/add"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TC021_Add_User_DOB_SpecialCharacters",
+			"item": [
+				{
+					"name": "Add_User_DOB_SpecialCharacters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request, Validate status code from list\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400, 406, 403, 404]);",
+									"});",
+									"",
+									"pm.test(\"Response time should be less than 500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"",
+									"pm.test(\"DOB field didn't change\", function () {",
+									"    pm.expect(pm.response.text()).not.to.include(\"!@##$%^\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Generate a random email\r",
+									"var randomEmail = 'user_' + Math.random().toString(36).substring(2, 12) + '@gmail.com';\r",
+									"\r",
+									"// Set the random email in the environment variable\r",
+									"pm.environment.set(\"EMAIL\", randomEmail);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"cognitoid\": \"{{CognitoID}}\",\r\n  \"name\": \"{{Name}}\",\r\n  \"dateofbirth\": \"!@##$%^\",\r\n  \"nationalinsurancenumber\": \"{{NINO}}\",\r\n  \"address\": \"{{ADDRESS}}\",\r\n  \"email\": \"{{EMAIL}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{LSET_LINK}}/user/add"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TC022_Add_User_NINO_SpecialCharacters",
+			"item": [
+				{
+					"name": "Add_User_NINO_SpecialCharacters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request, Validate status code from list\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400, 406, 403, 404]);",
+									"});",
+									"",
+									"pm.test(\"Response time should be less than 500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"",
+									"pm.test(\"Nino field didn't change\", function () {",
+									"    pm.expect(pm.response.text()).not.to.include(\"!£$%^^&*\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Generate a random email\r",
+									"var randomEmail = 'user_' + Math.random().toString(36).substring(2, 12) + '@gmail.com';\r",
+									"\r",
+									"// Set the random email in the environment variable\r",
+									"pm.environment.set(\"EMAIL\", randomEmail);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"cognitoid\": \"{{CognitoID}}\",\r\n  \"name\": \"{{Name}}\",\r\n  \"dateofbirth\": \"{{DOB}}\",\r\n  \"nationalinsurancenumber\": \"!£$%^^&*\",\r\n  \"address\": \"{{ADDRESS}}\",\r\n  \"email\": \"{{EMAIL}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{LSET_LINK}}/user/add"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TC023_Add_User_ADDRESS_SpecialCharacters",
+			"item": [
+				{
+					"name": "Add_User_ADDRESS_SpecialCharacters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request, Validate status code from list\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400, 406, 403, 404]);",
+									"});",
+									"",
+									"pm.test(\"Response time should be less than 500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"",
+									"pm.test(\"Address field didn't change\", function () {",
+									"    pm.expect(pm.response.text()).not.to.include(\"!£$%^&**(\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Generate a random email\r",
+									"var randomEmail = 'user_' + Math.random().toString(36).substring(2, 12) + '@gmail.com';\r",
+									"\r",
+									"// Set the random email in the environment variable\r",
+									"pm.environment.set(\"EMAIL\", randomEmail);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"cognitoid\": \"{{CognitoID}}\",\r\n  \"name\": \"{{Name}}\",\r\n  \"dateofbirth\": \"{{DOB}}\",\r\n  \"nationalinsurancenumber\": \"{{NINO}}\",\r\n  \"address\": \"!£$%^&**(\",\r\n  \"email\": \"{{EMAIL}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{LSET_LINK}}/user/add"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TC024_Update_User_EMAIL_WrongFormat",
+			"item": [
+				{
+					"name": "Add_User_EMAIL_WrongFormat",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request, Validate status code from list\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400, 406, 403, 404]);",
+									"});",
+									"",
+									"pm.test(\"Response time should be less than 500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"",
+									"pm.test(\"Email field didn't change\", function () {",
+									"    pm.expect(pm.response.text()).not.to.include(\"mark123\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Generate a random email\r",
+									"var randomEmail = 'user_' + Math.random().toString(36).substring(2, 12) + '@gmail.com';\r",
+									"\r",
+									"// Set the random email in the environment variable\r",
+									"pm.environment.set(\"EMAIL\", randomEmail);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"cognitoid\": \"{{CognitoID}}\",\r\n  \"name\": \"{{Name}}\",\r\n  \"dateofbirth\": \"{{DOB}}\",\r\n  \"nationalinsurancenumber\": \"{{NINO}}\",\r\n  \"address\": \"{{ADDRESS}}\",\r\n  \"email\": \"mark123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{LSET_LINK}}/user/add"
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
