@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "TC0025_Add_New_Account",
+			"name": "TC001_Add_New_Account",
 			"item": [
 				{
 					"name": "Add_Account",
