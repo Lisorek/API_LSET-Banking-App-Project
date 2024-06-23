@@ -44,7 +44,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\r\n    \"accountNumber\": \"12345678\",\r\n    \"sortCode\": \"12-34-56\",\r\n    \"user\": \"9aa0ec90-1ac7-cac6-974a-3df85ceaf117\",\r\n    \"bankAccountType\": \"savings\",\r\n    \"transactions\": []\r\n}\r\n",
+							"raw": "{\r\n  \"id\": \"4fcbfc7e-db3e-4988-9384-6804ab960866\",\r\n  \"annualincome\": 100000,\r\n  \"monthlyexpenses\": 4000,\r\n  \"nationalinsurancenumber\": \"{{NINO}}\",\r\n  \"user\": \"{{CognitoID}}\",\r\n  \"accounttype\": \"Current Account\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -78,6 +78,13 @@
 								],
 								"type": "text/javascript",
 								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
 							}
 						}
 					],
