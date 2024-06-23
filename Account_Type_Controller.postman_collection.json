@@ -1,0 +1,68 @@
+{
+	"info": {
+		"_postman_id": "8b0d2cee-8730-4d3b-8d68-910788a0fc3d",
+		"name": "Account_Type_Controller",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "26458154"
+	},
+	"item": [
+		{
+			"name": "TC_001_Add_Review",
+			"item": [
+				{
+					"name": "Add_Review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"9694dbb3-c1a2-4f10-9db7-828e30a68542\",\r\n  \"rating\": 4,\r\n  \"content\": \"Great\",\r\n  \"user\": \"{{CognitoID}}\",\r\n  \"accounttype\": \"Current Account\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{LSET_LINK}}/review/add"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TC_001_Add_AccountType",
+			"item": [
+				{
+					"name": "Add_AccountType",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Super\",\r\n  \"description\": \"Super Account\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{LSET_LINK}}/accounttype/add"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
