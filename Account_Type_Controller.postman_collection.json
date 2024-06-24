@@ -7,10 +7,36 @@
 	},
 	"item": [
 		{
-			"name": "TC_001_Add_Review",
+			"name": "TC001_Add_Review",
 			"item": [
 				{
 					"name": "Add_Review",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request, Validate status code from list\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time should be less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -22,7 +48,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"id\": \"9694dbb3-c1a2-4f10-9db7-828e30a68542\",\r\n  \"rating\": 4,\r\n  \"content\": \"Great\",\r\n  \"user\": \"{{CognitoID}}\",\r\n  \"accounttype\": \"Current Account\"\r\n}",
+							"raw": "{\r\n  \"id\": \"{{AccountTypeID}}\",\r\n  \"rating\": 4,\r\n  \"content\": \"Great\",\r\n  \"user\": \"{{CognitoID}}\",\r\n  \"accounttype\": \"Current Account\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -36,10 +62,36 @@
 			]
 		},
 		{
-			"name": "TC_001_Add_AccountType",
+			"name": "TC002_Add_AccountType",
 			"item": [
 				{
 					"name": "Add_AccountType",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request, Validate status code from list\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time should be less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -51,7 +103,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"Super\",\r\n  \"description\": \"Super Account\"\r\n}",
+							"raw": "{\r\n  \"name\": \"Superb\",\r\n  \"description\": \"Super Account\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -59,6 +111,104 @@
 							}
 						},
 						"url": "{{LSET_LINK}}/accounttype/add"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TC003_Get_All_AccountTypes",
+			"item": [
+				{
+					"name": "Fetch_All_AcountTypes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request, Validate status code from list\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time should be less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{LSET_LINK}}/accounttype/all"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TC004_Get_Accounttype_By_ID",
+			"item": [
+				{
+					"name": "Fetch_Accounttype_By_ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request, Validate status code from list\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time should be less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{LSET_LINK}}/accounttype/{{AccountTypeID}}"
 					},
 					"response": []
 				}
