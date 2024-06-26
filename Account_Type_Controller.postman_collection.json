@@ -23,7 +23,8 @@
 									"pm.test(\"Response time should be less than 500ms\", function () {\r",
 									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
 									"});\r",
-									""
+									"pm.test(\"Body contains: ID, cognito ID, name, address, Nino, Email and DOB\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"rating\", \"\");"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -32,8 +33,11 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
